@@ -1,17 +1,40 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 
-import { data } from '../utils/Data'
+import { getData } from '../utils/api'
+import { AppLoading } from 'expo'
 
 class Deck extends Component {
+  state = {
+    deck: null,
+    ready: false
+  }
+
+  componentDidMount() {
+    const { id } = this.props.route.params
+
+    getData(id)
+      .then((data) => {
+        this.setState(() => ({
+          deck: data,
+          ready: true
+        }))
+      })
+  }
+
   startQuiz = () => {
     console.log('quiz started')
   }
 
   render() {
+    const { deck, ready } = this.state
+
+    if(!ready) {
+      return <AppLoading />
+    }
+
     const { navigation, route } = this.props
     const { id } = route.params
-    const deck = data[id]
 
     return (
       <View style={styles.container}>

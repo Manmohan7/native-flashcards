@@ -1,4 +1,8 @@
-export const data = {
+import { AsyncStorage } from 'react-native'
+
+export const DATA_KEY = 'FlashCards:Data'
+
+const dummyData = {
   React: {
     title: 'React',
     questions: [
@@ -22,3 +26,5 @@ export const data = {
     ]
   }
 }
+
+AsyncStorage.setItem(DATA_KEY, JSON.stringify(dummyData))

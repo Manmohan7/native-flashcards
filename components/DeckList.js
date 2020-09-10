@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { FlatList, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { AppLoading } from 'expo'
 
-import { data } from '../utils/Data'
+import { getData } from '../utils/api'
 
-function DeckPreview({ item }, navigation) {
+function DeckPreview({ item }, navigation, list) {
   openDeck = () => {
     navigation.navigate('Deck', {
       id: item
@@ -13,8 +14,8 @@ function DeckPreview({ item }, navigation) {
   return (
     <TouchableOpacity onPress={this.openDeck}>
       <View style={styles.container}>
-        <Text style={styles.title}> {data[item].title} </Text>
-        <Text style={styles.count}> {data[item].questions.length} cards </Text>
+        <Text style={styles.title}> {list[item].title} </Text>
+        <Text style={styles.count}> {list[item].questions.length} cards </Text>
       </View>
     </TouchableOpacity>
   )
@@ -22,11 +23,33 @@ function DeckPreview({ item }, navigation) {
 
 
 class DeckList extends Component {
+  state = {
+    list: {},
+    ready: false
+  }
+
+  componentDidMount() {
+    getData()
+      .then((data) => {
+        this.setState({
+          list: data,
+          ready: true
+        })
+      })
+  }
+
   render() {
+    if(!this.state.ready) {
+      return <AppLoading />
+    }
+
+    const { list } = this.state
+    const { navigation } = this.props
+
     return (
       <FlatList
-        data={Object.keys(data)}
-        renderItem={(item) => DeckPreview(item, this.props.navigation)}
+        data={Object.keys(list)}
+        renderItem={(item) => DeckPreview(item, navigation, list)}
         keyExtractor={item => item}
       />
     )
