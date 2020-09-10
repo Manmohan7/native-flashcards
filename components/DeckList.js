@@ -5,22 +5,21 @@ import { AppLoading } from 'expo'
 import { getData } from '../utils/api'
 
 function DeckPreview({ item }, navigation, list) {
-  openDeck = () => {
+  function openDeck() {
     navigation.navigate('Deck', {
       id: item
     })
   }
 
   return (
-    <TouchableOpacity onPress={this.openDeck}>
+    <TouchableOpacity onPress={openDeck}>
       <View style={styles.container}>
-        <Text style={styles.title}> {list[item].title} </Text>
-        <Text style={styles.count}> {list[item].questions.length} cards </Text>
+        <Text style={styles.title}>{list[item].title}</Text>
+        <Text style={styles.count}>{list[item].questions.length} cards</Text>
       </View>
     </TouchableOpacity>
   )
 }
-
 
 class DeckList extends Component {
   state = {

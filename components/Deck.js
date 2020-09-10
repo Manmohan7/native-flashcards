@@ -38,8 +38,8 @@ class Deck extends Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.title}> {deck.title} </Text>
-        <Text style={styles.count}> {deck.questions.length} cards </Text>
+        <Text style={styles.title}>{deck.title}</Text>
+        <Text style={styles.count}>{deck.questions.length} cards</Text>
 
         <View>
           <TouchableOpacity
@@ -47,14 +47,14 @@ class Deck extends Component {
             onPress={() => navigation.navigate('NewCard', {
               deck: id
             })}>
-            <Text> Add Card </Text>
+            <Text>Add Card</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.btn}
             onPress={this.startQuiz}
           >
-            <Text> Start Quiz </Text>
+            <Text>Start Quiz</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -65,7 +65,7 @@ class Deck extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#eee',
+    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center'
   },
