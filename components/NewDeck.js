@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+
+import { connect } from 'react-redux'
+import { addNewDeck } from '../actions'
 
 import styles from '../utils/styles'
 import { addDeck } from '../utils/api'
@@ -9,14 +12,18 @@ class NewDeck extends Component {
     value: ''
   }
 
-  addNewDeck = () => {
+  handleAdd = () => {
+    const { navigation, dispatch } = this.props
+
+    dispatch(addNewDeck(this.state.value))
+
     addDeck(this.state.value)
 
     this.setState(() => ({
       value: ''
     }))
 
-    this.props.navigation.navigate('Decks')
+    navigation.navigate('Decks')
   }
 
   render() {
@@ -36,7 +43,7 @@ class NewDeck extends Component {
         />
 
         <TouchableOpacity
-          onPress={this.addNewDeck}
+          onPress={this.handleAdd}
           disabled={value === ''}
         >
           <Text style={darkBtn}>Add Deck</Text>
@@ -46,4 +53,4 @@ class NewDeck extends Component {
   }
 }
 
-export default NewDeck
+export default connect()(NewDeck)

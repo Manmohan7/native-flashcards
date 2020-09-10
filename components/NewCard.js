@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 
+import { connect } from 'react-redux'
+import { addNewCard } from '../actions'
+
 import styles from '../utils/styles'
 import { addCard } from '../utils/api'
 
@@ -10,9 +13,12 @@ class NewCard extends Component {
     answer: '',
   }
 
-  addNewCard = () => {
+  handleAdd = () => {
     const { question, answer } = this.state
-    const { deck } = this.props.route.params
+    const { route, dispatch } = this.props
+    const { deck } = route.params
+
+    dispatch(addNewCard(deck, question, answer))
 
     addCard(deck, question, answer)
 
@@ -48,7 +54,7 @@ class NewCard extends Component {
         />
 
         <TouchableOpacity
-          onPress={this.addNewCard}
+          onPress={this.handleAdd}
           disabled={question === '' || answer === ''}
         >
           <Text style={darkBtn}>Add Card</Text>
@@ -58,4 +64,4 @@ class NewCard extends Component {
   }
 }
 
-export default NewCard
+export default connect()(NewCard)

@@ -1,6 +1,10 @@
 import React from 'react'
 import { View, StatusBar } from 'react-native'
 
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducer from './reducers'
+
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -48,7 +52,6 @@ function MyTabs() {
 
 const Stack = createStackNavigator()
 
-
 function MyNavigator() {
   return (
     <NavigationContainer>
@@ -81,11 +84,12 @@ function MyNavigator() {
   )
 }
 
-
 export default function App() {
   return (
-    <View style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
-      <MyNavigator />
-    </View>
+    <Provider store={createStore(reducer)}>
+      <View style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
+        <MyNavigator />
+      </View>
+    </Provider>
   )
 }

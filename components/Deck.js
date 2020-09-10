@@ -1,40 +1,15 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 
-import { getData } from '../utils/api'
-import { AppLoading } from 'expo'
+import { connect } from 'react-redux'
 
 class Deck extends Component {
-  state = {
-    deck: null,
-    ready: false
-  }
-
-  componentDidMount() {
-    const { id } = this.props.route.params
-
-    getData(id)
-      .then((data) => {
-        this.setState(() => ({
-          deck: data,
-          ready: true
-        }))
-      })
-  }
-
   startQuiz = () => {
     console.log('quiz started')
   }
 
   render() {
-    const { deck, ready } = this.state
-
-    if(!ready) {
-      return <AppLoading />
-    }
-
-    const { navigation, route } = this.props
-    const { id } = route.params
+    const { navigation, deck } = this.props
 
     return (
       <View style={styles.container}>
@@ -45,7 +20,7 @@ class Deck extends Component {
           <TouchableOpacity
             style={styles.btn}
             onPress={() => navigation.navigate('NewCard', {
-              deck: id
+              deck: deck.title
             })}>
             <Text>Add Card</Text>
           </TouchableOpacity>
@@ -87,4 +62,12 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Deck
+function mapStoreToProps(decks, props) {
+  const { id } = props.route.params
+
+  return {
+    deck: decks[id]
+  }
+}
+
+export default connect(mapStoreToProps)(Deck)

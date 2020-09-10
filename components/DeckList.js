@@ -2,9 +2,12 @@ import React, { Component } from 'react'
 import { FlatList, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { AppLoading } from 'expo'
 
+import { recieveList } from '../actions'
+import { connect } from 'react-redux'
+
 import { getData } from '../utils/api'
 
-function DeckPreview({ item }, navigation, list) {
+function DeckPreview({ item }, navigation, decks) {
   function openDeck() {
     navigation.navigate('Deck', {
       id: item
@@ -14,8 +17,8 @@ function DeckPreview({ item }, navigation, list) {
   return (
     <TouchableOpacity onPress={openDeck}>
       <View style={styles.container}>
-        <Text style={styles.title}>{list[item].title}</Text>
-        <Text style={styles.count}>{list[item].questions.length} cards</Text>
+        <Text style={styles.title}>{decks[item].title}</Text>
+        <Text style={styles.count}>{decks[item].questions.length} cards</Text>
       </View>
     </TouchableOpacity>
   )
@@ -23,18 +26,13 @@ function DeckPreview({ item }, navigation, list) {
 
 class DeckList extends Component {
   state = {
-    list: {},
     ready: false
   }
 
   componentDidMount() {
     getData()
-      .then((data) => {
-        this.setState({
-          list: data,
-          ready: true
-        })
-      })
+      .then((data) => this.props.dispatch(recieveList(data)))
+      .then(() => this.setState({ ready: true }))
   }
 
   render() {
@@ -42,13 +40,12 @@ class DeckList extends Component {
       return <AppLoading />
     }
 
-    const { list } = this.state
-    const { navigation } = this.props
+    const { navigation, decks } = this.props
 
     return (
       <FlatList
-        data={Object.keys(list)}
-        renderItem={(item) => DeckPreview(item, navigation, list)}
+        data={Object.keys(decks)}
+        renderItem={(item) => DeckPreview(item, navigation, decks)}
         keyExtractor={item => item}
       />
     )
@@ -75,4 +72,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default DeckList
+export default connect((decks) => ({ decks }))(DeckList)
