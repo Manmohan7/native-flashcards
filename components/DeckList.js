@@ -1,14 +1,22 @@
 import React, { Component } from 'react'
-import { FlatList, View, Text, StyleSheet } from 'react-native'
+import { FlatList, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
 import { data } from '../utils/Data'
 
-function DeckPreview({ item }) {
+function DeckPreview({ item }, navigation) {
+  openDeck = () => {
+    navigation.navigate('Deck', {
+      id: item
+    })
+  }
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}> {data[item].title} </Text>
-      <Text style={styles.count}> {data[item].questions.length} cards </Text>
-    </View>
+    <TouchableOpacity onPress={this.openDeck}>
+      <View style={styles.container}>
+        <Text style={styles.title}> {data[item].title} </Text>
+        <Text style={styles.count}> {data[item].questions.length} cards </Text>
+      </View>
+    </TouchableOpacity>
   )
 }
 
@@ -18,7 +26,7 @@ class DeckList extends Component {
     return (
       <FlatList
         data={Object.keys(data)}
-        renderItem={DeckPreview}
+        renderItem={(item) => DeckPreview(item, this.props.navigation)}
         keyExtractor={item => item}
       />
     )
