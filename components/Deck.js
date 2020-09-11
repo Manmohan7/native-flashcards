@@ -3,67 +3,39 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 
 import { connect } from 'react-redux'
 
-class Deck extends Component {
-  startQuiz = () => {
-    console.log('quiz started')
-  }
+import styles from '../utils/styles'
 
+class Deck extends Component {
   render() {
     const { navigation, deck } = this.props
+    const { btn, container, heading, subHeading, hCenter } = styles
 
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>{deck.title}</Text>
-        <Text style={styles.count}>{deck.questions.length} cards</Text>
+      <View style={[ container, hCenter ]}>
+        <Text style={heading}>{deck.title}</Text>
+        <Text style={subHeading}>{deck.questions.length} cards</Text>
 
         <View>
           <TouchableOpacity
-            style={styles.btn}
             onPress={() => navigation.navigate('NewCard', {
               deck: deck.title
             })}>
-            <Text>Add Card</Text>
+            <Text style={btn}>Add Card</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={styles.btn}
             onPress={() => navigation.navigate('Quiz', {
               deck: deck.title
             })}
             disabled={deck.questions.length === 0}
           >
-            <Text>Start Quiz</Text>
+            <Text style={btn}>Start Quiz</Text>
           </TouchableOpacity>
         </View>
       </View>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  title: {
-    fontSize: 48,
-  },
-  count: {
-    fontSize: 24,
-    color: '#666',
-    marginBottom: 50,
-  },
-  btn: {
-    padding: 15,
-    borderColor: '#666',
-    borderWidth: 1,
-    marginTop: 20,
-    borderRadius: 5,
-    fontSize: 20,
-  }
-})
 
 function mapStoreToProps(decks, props) {
   const { id } = props.route.params

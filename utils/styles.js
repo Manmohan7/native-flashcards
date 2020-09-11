@@ -15,12 +15,13 @@ const styles = StyleSheet.create({
   },
 
   btn: {
-    padding: 15,
+    padding: 20,
     borderColor: '#666',
     borderWidth: 1,
     marginTop: 20,
     borderRadius: 5,
-    fontSize: 20,
+    fontSize: 18,
+    textAlign: 'center'
   },
 
   darkBtn: {

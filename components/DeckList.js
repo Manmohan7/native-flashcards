@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { FlatList, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { FlatList, View, Text, TouchableOpacity } from 'react-native'
 import { AppLoading } from 'expo'
 
 import { recieveList } from '../actions'
 import { connect } from 'react-redux'
 
 import { getData } from '../utils/api'
+import styles from '../utils/styles'
 
 function DeckPreview({ item }, navigation, decks) {
   function openDeck() {
@@ -14,11 +15,13 @@ function DeckPreview({ item }, navigation, decks) {
     })
   }
 
+  const { title, subTitle, divider, container, hCenter } = styles
+
   return (
     <TouchableOpacity onPress={openDeck}>
-      <View style={styles.container}>
-        <Text style={styles.title}>{decks[item].title}</Text>
-        <Text style={styles.count}>{decks[item].questions.length} cards</Text>
+      <View style={[divider, container, hCenter, { paddingBottom: 25 }]}>
+        <Text style={title}>{decks[item].title}</Text>
+        <Text style={subTitle}>{decks[item].questions.length} cards</Text>
       </View>
     </TouchableOpacity>
   )
@@ -51,25 +54,5 @@ class DeckList extends Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderBottomColor: '#eee',
-    borderBottomWidth: 2,
-    padding: 20,
-  },
-  title: {
-    fontSize: 24
-  },
-  count: {
-    fontSize: 16,
-    color: '#555'
-  }
-});
-
 
 export default connect((decks) => ({ decks }))(DeckList)

@@ -46,18 +46,12 @@ class Quiz extends Component {
           <Text style={heading}>{questions.length}</Text>
 
           <View>
-            <TouchableOpacity
-              onPress={this.resetTest}
-              style={btn}
-            >
-              <Text>Try Again</Text>
+            <TouchableOpacity onPress={this.resetTest}>
+              <Text style={btn}>Try Again</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              style={btn}
-            >
-              <Text>Back to Deck</Text>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <Text style={btn}>Back to Deck</Text>
             </TouchableOpacity>
           </View>
         </View>
