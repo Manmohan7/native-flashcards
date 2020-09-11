@@ -14,6 +14,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
 
+  btn: {
+    padding: 15,
+    borderColor: '#666',
+    borderWidth: 1,
+    marginTop: 20,
+    borderRadius: 5,
+    fontSize: 20,
+  },
+
   darkBtn: {
     backgroundColor: 'black',
     color: 'white',
@@ -36,6 +45,33 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
 
+  correctBtn: {
+    backgroundColor: 'green',
+    color: 'white',
+    padding: 20,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 18,
+  },
+
+  incorrectBtn: {
+    backgroundColor: 'red',
+    color: 'white',
+    padding: 20,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 18,
+  },
+
+  btnGroup: {
+    marginTop: 50,
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-evenly',
+  },
+
   container: {
     flex: 1,
     backgroundColor: '#fff',
@@ -50,10 +86,12 @@ const styles = StyleSheet.create({
 
   heading: {
     fontSize: 48,
+    marginBottom: 12,
   },
 
   subHeading: {
-
+    fontSize: 24,
+    color: '#555',
   },
 
   title: {
@@ -61,7 +99,8 @@ const styles = StyleSheet.create({
   },
 
   subTitle: {
-
+    fontSize: 16,
+    color: '#555'
   },
 
   count: {

@@ -28,8 +28,6 @@ export function addNewDeck(title) {
 }
 
 export function addNewCard(id, question, answer) {
-  console.log({id, question, answer})
-
   return {
     type: ADD_CARD,
     id,

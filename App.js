@@ -15,6 +15,7 @@ import DeckList from './components/DeckList'
 import NewDeck from './components/NewDeck'
 import Deck from './components/Deck'
 import NewCard from './components/NewCard'
+import Quiz from './components/Quiz'
 
 const Tab = createBottomTabNavigator();
 
@@ -78,6 +79,15 @@ function MyNavigator() {
           options={{
             title: 'Create New Card'
           }}
+        />
+
+        <Stack.Screen
+          name='Quiz'
+          component={Quiz}
+          options={({ route }) => ({
+            title: route.params.deck + ' Quiz!',
+            headerLeft: null,
+          })}
         />
       </Stack.Navigator>
     </NavigationContainer>
