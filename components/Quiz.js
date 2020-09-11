@@ -45,7 +45,7 @@ class Quiz extends Component {
           <Text style={subTitle}>out of</Text>
           <Text style={heading}>{questions.length}</Text>
 
-          <View style={btnGroup}>
+          <View>
             <TouchableOpacity
               onPress={this.resetTest}
               style={btn}
@@ -57,7 +57,7 @@ class Quiz extends Component {
               onPress={() => navigation.goBack()}
               style={btn}
             >
-              <Text>Go Back</Text>
+              <Text>Back to Deck</Text>
             </TouchableOpacity>
           </View>
         </View>

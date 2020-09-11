@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { View, StatusBar } from 'react-native'
 
 import { createStore } from 'redux'
@@ -16,6 +16,8 @@ import NewDeck from './components/NewDeck'
 import Deck from './components/Deck'
 import NewCard from './components/NewCard'
 import Quiz from './components/Quiz'
+
+import { setLocalNotification } from './utils/api'
 
 const Tab = createBottomTabNavigator();
 
@@ -94,12 +96,18 @@ function MyNavigator() {
   )
 }
 
-export default function App() {
-  return (
-    <Provider store={createStore(reducer)}>
-      <View style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
-        <MyNavigator />
-      </View>
-    </Provider>
-  )
+export default class App extends Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
+
+  render() {
+    return (
+      <Provider store={createStore(reducer)}>
+        <View style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
+          <MyNavigator />
+        </View>
+      </Provider>
+    )
+  }
 }

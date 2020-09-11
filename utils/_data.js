@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage'
 
 export const DATA_KEY = 'FlashCards:Data'
+export const NOTIFICATION_KEY = 'FlashCards:Notification'
 
 const dummyData = {
   React: {
